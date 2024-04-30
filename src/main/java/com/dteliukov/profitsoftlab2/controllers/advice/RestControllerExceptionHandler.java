@@ -18,8 +18,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Global exception handler for REST controllers.
+ */
 @RestControllerAdvice
 public class RestControllerExceptionHandler extends ResponseEntityExceptionHandler {
+    /**
+     * Handles method argument validation errors.
+     *
+     * @param e       The MethodArgumentNotValidException to handle.
+     * @param headers The HTTP headers.
+     * @param status  The HTTP status code.
+     * @param request The web request.
+     * @return ResponseEntity containing validation errors.
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
                                                                   @NonNull HttpHeaders headers,
@@ -31,12 +43,24 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
         return new ResponseEntity<>(errors, status);
     }
 
+    /**
+     * Handles EntityNotFoundException.
+     *
+     * @param e The EntityNotFoundException to handle.
+     * @return ErrorResponseDto containing the error message.
+     */
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
     public ErrorResponseDto handlerEntityNotFoundException(EntityNotFoundException e) {
         return new ErrorResponseDto(e.getMessage());
     }
 
+    /**
+     * Handles EntityExistsException.
+     *
+     * @param e The EntityExistsException to handle.
+     * @return ErrorResponseDto containing the error message.
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(EntityExistsException.class)
     public ErrorResponseDto handlerEntityExistsException(EntityExistsException e) {

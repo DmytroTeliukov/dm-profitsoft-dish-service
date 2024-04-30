@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Component for reading DishJsonObjDto data from a JSON stream using Jackson Streaming API.
+ */
 @Component
 @RequiredArgsConstructor
 public class DishJacksonStreamingReaderParser implements ReaderParser<DishJsonObjDto> {

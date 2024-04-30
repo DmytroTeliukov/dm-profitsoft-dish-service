@@ -46,15 +46,18 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 201 when create category successfully")
     public void shouldReturnStatus201_whenCreateCategorySuccessfully() throws Exception {
+        // Given
         String categoryName = "Dessert";
         CreateCategoryDto request = new CreateCategoryDto(categoryName);
 
+        // When
         ResultActions resultActions = mvc.perform(post("/api/categories")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -68,6 +71,7 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 400 when creating exist category")
     public void shouldReturnStatus400_whenCreatingExistCategory() throws Exception {
+        // Given
         long categoryId = 1L;
         String categoryName = "Main Course";
         Category sampleCategory = new Category(categoryId, categoryName);
@@ -75,12 +79,14 @@ public class CategoryControllerTest {
 
         categoryRepository.save(sampleCategory);
 
+        // When
         ResultActions resultActions = mvc.perform(post("/api/categories")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isBadRequest());
@@ -89,17 +95,20 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 200 when get all categories successfully")
     public void shouldReturnStatus200_whenGetAllCategoriesSuccessfully() throws Exception {
+        // Given
         List<Category> data = List.of(
                 Category.builder().name("Main Course").build(),
                 Category.builder().name("Dessert").build());
 
         categoryRepository.saveAll(data);
 
+        // When
         ResultActions resultActions = mvc.perform(get("/api/categories")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -113,15 +122,18 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 204 when delete category by id successfully")
     public void shouldReturnStatus204_whenDeleteCategoryByIdSuccessfully() throws Exception {
+        // Given
         String oldCategoryName = "Main Course";
         Category sampleCategory = Category.builder().name(oldCategoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
 
+        // When
         ResultActions resultActions = mvc.perform(delete("/api/categories/{id}", categoryId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -133,13 +145,16 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 404 when failed delete category by id")
     public void shouldReturnStatus204_whenFailedDeleteCategoryById() throws Exception {
+        // Given
         long categoryId = 1L;
 
+        // When
         ResultActions resultActions = mvc.perform(delete("/api/categories/{id}", categoryId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isNotFound());
@@ -148,15 +163,18 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 404 when failed update category by id")
     public void shouldReturnStatus404_whenFailedUpdateCategoryById() throws Exception {
+        // Given
         long categoryId = 1L;
         String newCategoryName = "Dessert";
 
+        // When
         ResultActions resultActions = mvc.perform(put("/api/categories/{id}", categoryId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new UpdateCategoryDto(newCategoryName)))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isNotFound());
@@ -165,16 +183,19 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 400 when updating exist category name")
     public void shouldReturnStatus400_whenUpdatingExistCategoryName() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
 
+        // When
         ResultActions resultActions = mvc.perform(put("/api/categories/{id}", categoryId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new UpdateCategoryDto(categoryName)))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isBadRequest());
@@ -183,18 +204,21 @@ public class CategoryControllerTest {
     @Test
     @DisplayName("should return status 204 when update category by id successfully")
     public void shouldReturnStatus204_whenUpdateCategoryByIdSuccessfully() throws Exception {
+        // Given
         String oldCategoryName = "Main Course";
         String newCategoryName = "Dessert";
         Category sampleCategory = Category.builder().name(oldCategoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
         UpdateCategoryDto request = new UpdateCategoryDto(newCategoryName);
 
+        // When
         ResultActions resultActions = mvc.perform(put("/api/categories/{id}", categoryId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isNoContent());

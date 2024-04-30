@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * Component for writing DishExcelObjDto data to an Excel file.
+ */
 @Component
 @RequiredArgsConstructor
 public class DishExcelWriterParser implements WriterParser<DishExcelObjDto> {
@@ -26,7 +26,15 @@ public class DishExcelWriterParser implements WriterParser<DishExcelObjDto> {
 
             // Create header row
             Row headerRow = sheet.createRow(0);
-            String[] headers = {"ID", "Name", "Description", "Price", "Weight", "Calories", "Ingredients", "Cuisines", "Dietary specifics"};
+            String[] headers = {"ID",
+                    "Name",
+                    "Description",
+                    "Price",
+                    "Weight",
+                    "Calories",
+                    "Ingredients",
+                    "Cuisines",
+                    "Dietary specifics"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);

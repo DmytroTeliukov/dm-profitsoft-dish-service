@@ -8,7 +8,6 @@ import com.dteliukov.profitsoftlab2.parsers.impl.DishJacksonStreamingReaderParse
 import com.dteliukov.profitsoftlab2.repositories.CategoryRepository;
 import com.dteliukov.profitsoftlab2.repositories.DishRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,16 +17,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,19 +64,21 @@ public class DishControllerTest {
     @DisplayName("should return status 201 when create dish successfully")
     @Transactional
     public void shouldReturnStatus201_whenCreateDishSuccessfully() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
 
         CreateDishDto request = createSampleDishDto(categoryId);
 
-
+        // When
         ResultActions resultActions = mvc.perform(post("/api/dishes")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isCreated());
@@ -107,6 +104,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 400 when create dish with exist dish name")
     public void shouldReturnStatus400_whenCreateDishWithExistDishName() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
@@ -119,12 +117,14 @@ public class DishControllerTest {
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // When
         ResultActions resultActions = mvc.perform(post("/api/dishes")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isBadRequest());
@@ -133,6 +133,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 404 when create dish with not exist category")
     public void shouldReturnStatus404_whenCreateDishWithNotExistCategory() throws Exception {
+        // Given
         CreateDishDto request = createSampleDishDto(1L);
 
         mvc.perform(post("/api/dishes")
@@ -141,12 +142,14 @@ public class DishControllerTest {
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // When
         ResultActions resultActions = mvc.perform(post("/api/dishes")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isNotFound());
@@ -156,6 +159,7 @@ public class DishControllerTest {
     @DisplayName("should return status 204 when update dish successfully")
     @Transactional
     public void shouldReturnStatus204_whenUpdateDishSuccessfully() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
@@ -173,12 +177,14 @@ public class DishControllerTest {
 
         UpdateDishDto updateRequest = updateSampleDishDto();
 
+        // When
         ResultActions resultActions = mvc.perform(put("/api/dishes/{id}", dish.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -206,6 +212,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 400 when update dish with exist dish name")
     public void shouldReturnStatus400_whenUpdateDishWithExistDishName() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
@@ -224,12 +231,14 @@ public class DishControllerTest {
         UpdateDishDto updateRequest = updateSampleDishDto();
         updateRequest.setName(request.getName());
 
+        // When
         ResultActions resultActions = mvc.perform(put("/api/dishes/{id}", dish.getId())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isBadRequest());
@@ -238,14 +247,17 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 404 when update dish with not exist dish")
     public void shouldReturnStatus404_whenUpdateDishWithNotExistDish() throws Exception {
+        // Given
         UpdateDishDto updateRequest = updateSampleDishDto();
 
+        // When
         ResultActions resultActions = mvc.perform(put("/api/dishes/{id}", 1L)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isNotFound());
@@ -254,12 +266,11 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 200 when get all dishes successfully")
     public void shouldReturnStatus200_whenAllDishesSuccessfully() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
-
         CreateDishDto request = createSampleDishDto(categoryId);
-
 
         mvc.perform(post("/api/dishes")
                 .accept(MediaType.APPLICATION_JSON)
@@ -273,12 +284,14 @@ public class DishControllerTest {
                 0,
                 1);
 
+        // When
         ResultActions resultActions = mvc.perform(post("/api/dishes/_list")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(filterDishRequestDto))
         );
 
+        // Then
         resultActions
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -290,6 +303,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 200 when get dish by id successfully")
     public void shouldReturnStatus200_whenGetDishByIdSuccessfully() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
@@ -305,11 +319,13 @@ public class DishControllerTest {
 
         long dishId = dishRepository.findAll().get(0).getId();
 
+        // When
         ResultActions resultActions = mvc.perform(get("/api/dishes/{id}", dishId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
+        // Then
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(request.getName()));
@@ -318,11 +334,13 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 404 when get not exist dish by id")
     public void shouldReturnStatus404_whenGetNotExistDishById() throws Exception {
+        // Given & When
         ResultActions resultActions = mvc.perform(get("/api/dishes/{id}", 1L)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
+        // Then
         resultActions
                 .andExpect(status().isNotFound());
     }
@@ -330,6 +348,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 204 when delete dish by id successfully")
     public void shouldReturnStatus204_whenDeleteDishByIdSuccessfully() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
@@ -342,11 +361,13 @@ public class DishControllerTest {
                 .content(objectMapper.writeValueAsString(request))
         );
 
+        // When
         ResultActions resultActions = mvc.perform(get("/api/dishes/{id}", categoryId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
+        // Then
         resultActions
                 .andExpect(status().isNotFound());
     }
@@ -354,11 +375,13 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 404 when delete not exist dish by id")
     public void shouldReturnStatus404_whenDeleteNotExistDishById() throws Exception {
+        // Given & When
         ResultActions resultActions = mvc.perform(get("/api/dishes/{id}", 1L)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );
 
+        // Then
         resultActions
                 .andExpect(status().isNotFound());
     }
@@ -366,6 +389,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 200 when generate report successfully")
     public void shouldReturnStatus200_whenGenerateReportSuccessfully() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         long categoryId = categoryRepository.save(sampleCategory).getId();
@@ -385,6 +409,7 @@ public class DishControllerTest {
 
         String outputFilename = "\"" + String.format(EXCEL_FILE_NAME_PATTERN, categoryName, 0, Integer.MAX_VALUE) + "\"";
 
+        // When & Then
         mvc.perform(post("/api/dishes/_report")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -397,6 +422,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 404 when there is not content for generating report")
     public void shouldReturnStatus404_whenThereIsNotContentForGeneratingReport() throws Exception {
+        // Given
         String categoryName = "Dessert";
         Category sampleCategory = Category.builder().name(categoryName).build();
         categoryRepository.save(sampleCategory);
@@ -406,7 +432,7 @@ public class DishControllerTest {
                 0,
                 Integer.MAX_VALUE);
 
-
+        // When & Then
         mvc.perform(post("/api/dishes/_report")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -418,12 +444,12 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 404 when category by id not exist")
     public void shouldReturnStatus404_whenCategoryByIdNotExist() throws Exception {
-
+        // Given
         GenerateReportRequestDto request = new GenerateReportRequestDto(1L,
                 0,
                 Integer.MAX_VALUE);
 
-
+        // When & Then
         mvc.perform(post("/api/dishes/_report")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -435,6 +461,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 201 when upload json file successfully")
     public void shouldReturnStatus201_whenUploadJsonFileSuccessfully() throws Exception {
+        // Given
         Category category = categoryRepository.save(Category.builder().name("Category1").build());
         DishJsonObjDto dish1 = new DishJsonObjDto(
                 "Grilled Salmon",
@@ -479,6 +506,7 @@ public class DishControllerTest {
         MockMultipartFile file = new MockMultipartFile("dish_json_file", "all-valid-dishes.json",
                 MediaType.APPLICATION_JSON_VALUE, resource.getInputStream());
 
+        // When & Then
         mvc.perform(MockMvcRequestBuilders.multipart("/api/dishes/upload")
                         .file(file))
                 .andExpect(status().isCreated())
@@ -492,6 +520,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 201 when upload json file with some failure records")
     public void shouldReturnStatus201_whenUploadJsonFileWithSomeFailureRecords() throws Exception {
+        // Given
         Category category = categoryRepository.save(Category.builder().name("Category1").build());
         DishJsonObjDto dish1 = new DishJsonObjDto(
                 "Grilled Salmon",
@@ -536,6 +565,7 @@ public class DishControllerTest {
         MockMultipartFile file = new MockMultipartFile("dish_json_file", "partially-valid-dishes.json",
                 MediaType.APPLICATION_JSON_VALUE, resource.getInputStream());
 
+        // When & Then
         mvc.perform(MockMvcRequestBuilders.multipart("/api/dishes/upload")
                         .file(file))
                 .andExpect(status().isCreated())
@@ -549,6 +579,7 @@ public class DishControllerTest {
     @Test
     @DisplayName("should return status 400 when upload json file with all failure records")
     public void shouldReturnStatus400_whenUploadJsonFileWithAllFailureRecords() throws Exception {
+        // Given
         DishJsonObjDto dish1 = new DishJsonObjDto(
                 "Grilled Salmon",
                 "Freshly grilled salmon fillet with a side of vegetables.",
@@ -592,6 +623,7 @@ public class DishControllerTest {
         MockMultipartFile file = new MockMultipartFile("dish_json_file", "partially-valid-dishes.json",
                 MediaType.APPLICATION_JSON_VALUE, resource.getInputStream());
 
+        // When & Then
         mvc.perform(MockMvcRequestBuilders.multipart("/api/dishes/upload")
                         .file(file))
                 .andExpect(status().isCreated())

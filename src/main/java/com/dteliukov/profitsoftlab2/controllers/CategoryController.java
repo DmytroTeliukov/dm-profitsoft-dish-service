@@ -5,16 +5,16 @@ import com.dteliukov.profitsoftlab2.dtos.GetCategoryDto;
 import com.dteliukov.profitsoftlab2.dtos.UpdateCategoryDto;
 import com.dteliukov.profitsoftlab2.services.CategoryService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
-@Slf4j
+/**
+ * Controller for managing categories.
+ */
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
@@ -22,25 +22,45 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CategoryController {
     private final CategoryService categoryService;
 
-    @GetMapping
+    /**
+     * Retrieves all categories.
+     *
+     * @return List of GetCategoryDto containing all categories.
+     */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<GetCategoryDto> getAllCategories() {
         return categoryService.findAll();
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    /**
+     * Creates a new category.
+     *
+     * @param categoryDto The CreateCategoryDto containing category data.
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@RequestBody CreateCategoryDto categoryDto) {
-        log.info("Create category: {}", categoryDto);
         categoryService.save(categoryDto);
     }
 
-    @PutMapping("/{id}")
+    /**
+     * Updates an existing category.
+     *
+     * @param categoryDto The UpdateCategoryDto containing updated category data.
+     * @param id          The ID of the category to update.
+     */
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCategory(@RequestBody UpdateCategoryDto categoryDto, @PathVariable("id") Long id) {
         categoryService.update(categoryDto, id);
     }
 
-    @DeleteMapping("/{id}")
+    /**
+     * Deletes a category by ID.
+     *
+     * @param id The ID of the category to delete.
+     */
+    @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable("id") Long id) {
         categoryService.deleteById(id);
