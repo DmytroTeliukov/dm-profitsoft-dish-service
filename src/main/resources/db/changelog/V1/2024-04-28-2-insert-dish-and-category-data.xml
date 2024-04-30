@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="insert-categories" author="dmytro.teliukov@gmail.com">
+        <insert tableName="categories">
+            <column name="name" value="Burger"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Pizza"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Salad"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Soup"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Sushi"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Drinks"/>
+        </insert>
+        <insert tableName="categories">
+            <column name="name" value="Dessert"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-dishes" author="dmytro.teliukov@gmail.com">
+        <insert tableName="dishes">
+            <column name="name" value="Hamburger"/>
+            <column name="description" value="Tasty Hamburger"/>
+            <column name="price" value="150"/>
+            <column name="weight" value="420"/>
+            <column name="calories" value="514.5"/>
+            <column name="fk_category_id" value="1"/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Pizza 4 Cheese"/>
+            <column name="description" value="Tasty cheesy pizza"/>
+            <column name="price" value="190"/>
+            <column name="weight" value="720"/>
+            <column name="calories" value="684.5"/>
+            <column name="fk_category_id" value="2"/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Salad Caesar"/>
+            <column name="description" value="Tasty salad"/>
+            <column name="price" value="120"/>
+            <column name="weight" value="220"/>
+            <column name="calories" value="214.5"/>
+            <column name="fk_category_id" value="3"/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Cream Soup"/>
+            <column name="description" value="Tasty soup"/>
+            <column name="price" value="180"/>
+            <column name="weight" value="320"/>
+            <column name="calories" value="314.5"/>
+            <column name="fk_category_id" value="4"/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Sushi Nagakami"/>
+            <column name="description" value="Tasty sushi"/>
+            <column name="price" value="60"/>
+            <column name="weight" value="80"/>
+            <column name="calories" value="114.5"/>
+            <column name="fk_category_id" value="5"/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Lemonade"/>
+            <column name="description" value="Tasty lemonade"/>
+            <column name="price" value="50"/>
+            <column name="weight" value="100"/>
+            <column name="calories" value="104.5"/>
+            <column name="fk_category_id" value="6"/>
+        </insert>
+        <insert tableName="dishes">
+            <column name="name" value="Chocolate cake"/>
+            <column name="description" value="Tasty cake"/>
+            <column name="price" value="170"/>
+            <column name="weight" value="200"/>
+            <column name="calories" value="404.5"/>
+            <column name="fk_category_id" value="7"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert_dish_data" author="dmytro.teliukov@gmail.com">
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="1" />
+            <column name="name" value="Ground Beef" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="1" />
+            <column name="name" value="Lettuce" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="1" />
+            <column name="name" value="Tomato" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="1" />
+            <column name="name" value="Onion" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="1" />
+            <column name="name" value="Cheese" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="2" />
+            <column name="name" value="Mozzarella Cheese" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="2" />
+            <column name="name" value="Cheddar Cheese" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="2" />
+            <column name="name" value="Parmesan Cheese" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="3" />
+            <column name="name" value="Romaine Lettuce" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="3" />
+            <column name="name" value="Croutons" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="3" />
+            <column name="name" value="Parmesan Cheese" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="3" />
+            <column name="name" value="Caesar Dressing" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="4" />
+            <column name="name" value="Heavy Cream" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="4" />
+            <column name="name" value="Chicken Stock" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="4" />
+            <column name="name" value="Vegetables" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="4" />
+            <column name="name" value="Spices" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="5" />
+            <column name="name" value="Rice" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="5" />
+            <column name="name" value="Fish" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="5" />
+            <column name="name" value="Seaweed" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="5" />
+            <column name="name" value="Soy Sauce" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="6" />
+            <column name="name" value="Lemon Juice" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="6" />
+            <column name="name" value="Water" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="6" />
+            <column name="name" value="Sugar" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="7" />
+            <column name="name" value="Flour" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="7" />
+            <column name="name" value="Sugar" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="7" />
+            <column name="name" value="Eggs" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="7" />
+            <column name="name" value="Butter" />
+        </insert>
+        <insert tableName="dish_ingredients">
+            <column name="dish_id" value="7" />
+            <column name="name" value="Chocolate" />
+        </insert>
+
+        <insert tableName="dish_cuisines">
+            <column name="dish_id" value="1" />
+            <column name="name" value="American" />
+        </insert>
+        <insert tableName="dish_cuisines">
+            <column name="dish_id" value="2" />
+            <column name="name" value="Italian" />
+        </insert>
+        <insert tableName="dish_cuisines">
+            <column name="dish_id" value="3" />
+            <column name="name" value="American" />
+        </insert>
+        <insert tableName="dish_cuisines">
+            <column name="dish_id" value="4" />
+            <column name="name" value="International" />
+        </insert>
+        <insert tableName="dish_cuisines">
+            <column name="dish_id" value="5" />
+            <column name="name" value="Japanese" />
+        </insert>
+        <insert tableName="dish_cuisines">
+            <column name="dish_id" value="6" />
+            <column name="name" value="International" />
+        </insert>
+        <insert tableName="dish_cuisines">
+            <column name="dish_id" value="7" />
+            <column name="name" value="International" />
+        </insert>
+
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="1" />
+            <column name="name" value="Meat" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="1" />
+            <column name="name" value="Dairy" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="3" />
+            <column name="name" value="Vegetarian" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="3" />
+            <column name="name" value="Gluten-Free" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="4" />
+            <column name="name" value="Vegetarian" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="4" />
+            <column name="name" value="Gluten-Free" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="5" />
+            <column name="name" value="Seafood" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="5" />
+            <column name="name" value="Gluten-Free" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="6" />
+            <column name="name" value="Vegetarian" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="7" />
+            <column name="name" value="Vegetarian" />
+        </insert>
+        <insert tableName="dish_dietary_specifics">
+            <column name="dish_id" value="7" />
+            <column name="name" value="Gluten-Free" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

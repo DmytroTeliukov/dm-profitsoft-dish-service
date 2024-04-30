@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="drop_tables_if_exist" author="dmytro.teliukov@gmail.com">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="dishes"/>
+            <tableExists tableName="categories"/>
+        </preConditions>
+
+        <dropTable tableName="dishes" cascadeConstraints="true"/>
+        <dropTable tableName="categories"/>
+    </changeSet>
+
+    <changeSet id="create-category-table" author="dmytro.teliukov@gmail.com">
+        <createTable tableName="categories">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(32)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-dish-table" author="dmytro.teliukov@gmail.com">
+        <createTable tableName="dishes">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="calories" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fk_category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-dish-related-tables" author="dmytro.teliukov@gmail.com">
+        <createTable tableName="dish_ingredients">
+            <column name="dish_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="dish_cuisines">
+            <column name="dish_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="dish_dietary_specifics">
+            <column name="dish_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-foreign-keys" author="dmytro.teliukov@gmail.com">
+        <addForeignKeyConstraint baseTableName="dish_ingredients"
+                                 baseColumnNames="dish_id"
+                                 constraintName="fk_dish_ingredients_dish_id"
+                                 referencedTableName="dishes"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseTableName="dish_cuisines"
+                                 baseColumnNames="dish_id"
+                                 constraintName="fk_dish_cuisines_dish_id"
+                                 referencedTableName="dishes"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseTableName="dish_dietary_specifics"
+                                 baseColumnNames="dish_id"
+                                 constraintName="fk_dish_dietary_specifics_dish_id"
+                                 referencedTableName="dishes"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint baseTableName="dishes"
+                                 baseColumnNames="fk_category_id"
+                                 constraintName="fk_dish_category_id"
+                                 referencedTableName="categories"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+
+</databaseChangeLog>

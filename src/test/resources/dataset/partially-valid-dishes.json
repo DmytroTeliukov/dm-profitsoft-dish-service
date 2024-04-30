@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Grilled Salmon",
+    "description": "Freshly grilled salmon fillet with a side of vegetables.",
+    "price": 15,
+    "weight": 250,
+    "calories": 350,
+    "categoryId": 1,
+    "ingredients": ["Salmon fillet", "Olive oil", "Salt", "Pepper", "Mixed vegetables"],
+    "cuisines": ["Seafood", "Mediterranean"],
+    "dietarySpecifics": ["High protein", "Low carb", "Gluten-free"]
+  },
+  {
+    "name": "Chicken Caesar Salad",
+    "description": "Classic Caesar salad topped with grilled chicken strips.",
+    "price": 12,
+    "weight": 300,
+    "calories": 280,
+    "categoryId": 100,
+    "ingredients": ["Romaine lettuce", "Grilled chicken", "Parmesan cheese", "Caesar dressing", "Croutons"],
+    "cuisines": ["Italian", "American"],
+    "dietarySpecifics": ["Low calorie", "High protein", "Gluten-free"]
+  },
+  {
+    "name": "Vegetable Stir-Fry",
+    "description": "",
+    "price": 10,
+    "weight": 200,
+    "calories": 220,
+    "categoryId": 2,
+    "ingredients": ["Tofu", "Broccoli", "Bell peppers", "Carrots", "Soy sauce"],
+    "cuisines": ["Asian", "Vegetarian"],
+    "dietarySpecifics": ["Vegan", "Low carb", "Gluten-free"]
+  }
+]

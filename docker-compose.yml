@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  restaurant-postgressql-database:
+    image: postgres:16.2
+    env_file: .env
+    container_name: restaurant-postgressql-database
+    ports:
+      - "2000:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: $POSTGRESDB_USER
+      POSTGRES_PASSWORD: $POSTGRESDB_PASSWORD
+      POSTGRES_DB: $POSTGRESDB_DATABASE
+
+  restaurant-backend-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    container_name: restaurant-backend-app
+    ports:
+      - "9090:9090"
+    depends_on:
+      - restaurant-postgressql-database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://restaurant-postgressql-database:5432/$POSTGRESDB_DATABASE
+      SPRING_DATASOURCE_USERNAME: $POSTGRESDB_USER
+      SPRING_DATASOURCE_PASSWORD: $POSTGRESDB_PASSWORD
