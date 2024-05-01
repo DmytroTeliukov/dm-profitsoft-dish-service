@@ -13,9 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FilterDishResponseDto {
-    /*
-    The list of filtered dishes.
-    */
+    /**
+     * The list of filtered dishes.
+     */
     private List<GetDishDto> list;
     /**
      * The total number of pages after filtering.

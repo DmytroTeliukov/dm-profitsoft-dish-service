@@ -15,9 +15,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class CreateDishDto {
-    /*
-    The name of the dish.
-    */
+    /**
+     * The name of the dish.
+     */
     @NotBlank(message = "Name of dish should not be blank")
     @Size(max = 64, message = "Length of dish name must be less than 64 characters")
     private String name;

@@ -98,7 +98,17 @@ public class DishJacksonStreamingReaderParser implements ReaderParser<DishJsonOb
             }
         }
 
-        return new DishJsonObjDto(name, description, price, weight, calories, categoryId, ingredients, cuisines, dietarySpecifics);
+        return DishJsonObjDto.builder()
+                .name(name)
+                .description(description)
+                .price(price)
+                .weight(weight)
+                .calories(calories)
+                .categoryId(categoryId)
+                .ingredients(ingredients)
+                .cuisines(cuisines)
+                .dietarySpecifics(dietarySpecifics)
+                .build();
     }
 
     private static List<String> readStringList(JsonParser jsonParser) throws IOException {

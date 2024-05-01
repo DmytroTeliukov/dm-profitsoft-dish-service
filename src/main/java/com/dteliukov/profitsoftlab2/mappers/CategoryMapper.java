@@ -13,11 +13,12 @@ import java.util.List;
  */
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
-    /*
-    Maps a Category entity to a GetCategoryDto.
-    @param category The Category entity to map.
-    @return The corresponding GetCategoryDto.
-    */
+    /**
+     * Maps a Category entity to a GetCategoryDto.
+     *
+     * @param category The Category entity to map.
+     * @return The corresponding GetCategoryDto.
+     */
     GetCategoryDto toGetCategoryDto(Category category);
 
     /**

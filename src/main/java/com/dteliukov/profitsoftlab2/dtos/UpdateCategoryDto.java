@@ -16,9 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateCategoryDto {
-    /*
-    The name of the category.
-    */
+    /**
+     * The name of the category.
+     */
     @NotBlank(message = "Name of category should not be blank")
     @Size(max = 32, message = "Length of category name must be less than 32 characters")
     private String name;

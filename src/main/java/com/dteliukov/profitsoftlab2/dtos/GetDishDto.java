@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetDishDto {
-    /*
-    The ID of the dish.
-    */
+    /**
+     * The ID of the dish.
+     */
     private Long id;
     /**
      * The name of the dish.

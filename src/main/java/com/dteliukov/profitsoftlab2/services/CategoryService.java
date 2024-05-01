@@ -10,10 +10,11 @@ import java.util.List;
  * Service interface for managing categories.
  */
 public interface CategoryService {
-    /*
-    Retrieves all categories.
-    @return A list of GetCategoryDto representing all categories.
-    */
+    /**
+     * Retrieves all categories.
+     *
+     * @return A list of GetCategoryDto representing all categories.
+     */
     List<GetCategoryDto> findAll();
 
     /**

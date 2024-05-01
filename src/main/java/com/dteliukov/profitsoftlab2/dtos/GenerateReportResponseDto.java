@@ -12,9 +12,9 @@ import java.io.ByteArrayInputStream;
 @Getter
 @AllArgsConstructor
 public class GenerateReportResponseDto {
-    /*
-    The name of the generated report.
-    */
+    /**
+     * The name of the generated report.
+     */
     private String name;
     /**
      * The content of the generated report.

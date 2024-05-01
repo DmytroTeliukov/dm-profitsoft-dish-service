@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryDto {
-    /*
-    The ID of the category.
-    */
+    /**
+     * The ID of the category.
+     */
     private Long id;
     /**
      * The name of the category.

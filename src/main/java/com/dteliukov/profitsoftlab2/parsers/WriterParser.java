@@ -9,10 +9,11 @@ import java.util.List;
  * @param <T> The type of data to write.
  */
 public interface WriterParser<T> {
-    /*
-    Writes data from a list of objects of type T to a ByteArrayInputStream.
-    @param data The list of objects to write.
-    @return A ByteArrayInputStream containing the written data.
-    */
+    /**
+     * Writes data from a list of objects of type T to a ByteArrayInputStream.
+     *
+     * @param data The list of objects to write.
+     * @return A ByteArrayInputStream containing the written data.
+     */
     ByteArrayInputStream write(List<T> data);
 }

@@ -51,7 +51,7 @@ public class DishServiceImpl implements DishService {
                         requestDto.getMaxPrice(),
                         PageRequest.of(requestDto.getPage(), requestDto.getSize()));
 
-        List<GetDishDto> dishDtos = dishes.getContent().stream().map(dishMapper::ToGetDishDto).toList();
+        List<GetDishDto> dishDtos = dishes.getContent().stream().map(dishMapper::toGetDishDto).toList();
 
 
         return new FilterDishResponseDto(dishDtos, dishes.getTotalPages());
@@ -63,7 +63,7 @@ public class DishServiceImpl implements DishService {
         Dish dish = dishRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Dish with id %s not found", id)));
 
-        return dishMapper.ToGetFullDishInfoDto(dish);
+        return dishMapper.toGetFullDishInfoDto(dish);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class DishServiceImpl implements DishService {
         }
 
         String categoryName = categoryRepository.findById(requestDto.getCategoryId()).orElseThrow().getName();
-        List<DishExcelObjDto> dishObjDtos = dishMapper.ToGetDishExcelDtos(dishes.getContent());
+        List<DishExcelObjDto> dishObjDtos = dishMapper.toGetDishExcelDtos(dishes.getContent());
 
         if (dishObjDtos.isEmpty()) {
             throw new EntityNotFoundException("There is no dishes by name " + categoryName);

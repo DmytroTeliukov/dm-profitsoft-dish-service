@@ -12,9 +12,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class GenerateReportRequestDto {
-    /*
-    The ID of the category to generate the report for.
-    */
+    /**
+     * The ID of the category to generate the report for.
+     */
     @NotNull(message = "CategoryId of dish should not be null")
     @Positive(message = "CategoryId of dish should be positive value")
     private Long categoryId;

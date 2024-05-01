@@ -10,8 +10,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ErrorResponseDto {
-    /*
-    The error message.
-    */
+    /**
+     * The error message.
+     */
     private String message;
 }

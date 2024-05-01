@@ -8,11 +8,12 @@ import org.springframework.web.multipart.MultipartFile;
  * Service interface for managing dishes.
  */
 public interface DishService {
-    /*
-    Retrieves dishes based on filtering criteria.
-    @param requestDto The filtering criteria.
-    @return A FilterDishResponseDto containing filtered dishes.
-    */
+    /**
+     * Retrieves dishes based on filtering criteria.
+     *
+     * @param requestDto The filtering criteria.
+     * @return A FilterDishResponseDto containing filtered dishes.
+     */
     FilterDishResponseDto findAll(FilterDishRequestDto requestDto);
 
     /**

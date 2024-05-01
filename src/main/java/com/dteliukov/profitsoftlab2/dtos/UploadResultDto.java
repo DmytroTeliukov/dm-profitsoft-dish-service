@@ -14,9 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UploadResultDto {
-    /*
-    The count of successful uploaded records.
-    */
+    /**
+     * The count of successful uploaded records.
+     */
     private int countSuccessfulUploadedRecords;
     /**
      * The count of failed uploaded records.

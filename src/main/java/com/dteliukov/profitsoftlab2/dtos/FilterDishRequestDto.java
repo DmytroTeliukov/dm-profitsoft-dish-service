@@ -13,9 +13,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class FilterDishRequestDto {
-    /*
-    The ID of the category to filter by.
-    */
+    /**
+     * The ID of the category to filter by.
+     */
     @NotNull(message = "CategoryId of dish should not be null")
     @Positive(message = "CategoryId of dish should be positive value")
     private Long categoryId;

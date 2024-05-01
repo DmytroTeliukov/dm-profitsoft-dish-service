@@ -14,12 +14,13 @@ import java.util.List;
  */
 @Mapper(componentModel = "spring")
 public interface DishMapper {
-    /*
-    Maps a Dish entity to a GetDishDto.
-    @param dish The Dish entity to map.
-    @return The corresponding GetDishDto.
-    */
-    GetDishDto ToGetDishDto(Dish dish);
+    /**
+     * Maps a Dish entity to a GetDishDto.
+     *
+     * @param dish The Dish entity to map.
+     * @return The corresponding GetDishDto.
+     */
+    GetDishDto toGetDishDto(Dish dish);
 
     /**
      * Maps a Dish entity to a GetFullDishInfoDto.
@@ -27,7 +28,7 @@ public interface DishMapper {
      * @param dish The Dish entity to map.
      * @return The corresponding GetFullDishInfoDto.
      */
-    GetFullDishInfoDto ToGetFullDishInfoDto(Dish dish);
+    GetFullDishInfoDto toGetFullDishInfoDto(Dish dish);
 
     /**
      * Maps a CreateDishDto to a Dish entity.
@@ -43,7 +44,7 @@ public interface DishMapper {
      * @param dish The Dish entity to map.
      * @return The corresponding DishExcelObjDto.
      */
-    DishExcelObjDto ToDishExcelObjDto(Dish dish);
+    DishExcelObjDto toDishExcelObjDto(Dish dish);
 
     /**
      * Maps a list of Dish entities to a list of DishExcelObjDto.
@@ -51,5 +52,5 @@ public interface DishMapper {
      * @param dishes The list of Dish entities to map.
      * @return The corresponding list of DishExcelObjDto.
      */
-    List<DishExcelObjDto> ToGetDishExcelDtos(List<Dish> dishes);
+    List<DishExcelObjDto> toGetDishExcelDtos(List<Dish> dishes);
 }

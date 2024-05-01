@@ -13,9 +13,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class DishExcelObjDto {
-    /*
-    The ID of the dish.
-    */
+    /**
+     * The ID of the dish.
+     */
     private Long id;
     /**
      * The name of the dish.

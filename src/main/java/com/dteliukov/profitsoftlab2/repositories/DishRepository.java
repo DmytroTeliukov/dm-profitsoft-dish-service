@@ -12,14 +12,15 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface DishRepository extends JpaRepository<Dish, Long> {
-    /*
-    Retrieves a page of dishes filtered by category ID and price range.
-    @param categoryId The ID of the category to filter by.
-    @param minPrice The minimum price.
-    @param maxPrice The maximum price.
-    @param pageable The pagination information.
-    @return A page of dishes filtered by category ID and price range.
-    */
+    /**
+     * Retrieves a page of dishes filtered by category ID and price range.
+     *
+     * @param categoryId The ID of the category to filter by.
+     * @param minPrice   The minimum price.
+     * @param maxPrice   The maximum price.
+     * @param pageable   The pagination information.
+     * @return A page of dishes filtered by category ID and price range.
+     */
     Page<Dish> findByCategoryIdAndPriceBetween(Long categoryId, Integer minPrice, Integer maxPrice, Pageable pageable);
 
     /**

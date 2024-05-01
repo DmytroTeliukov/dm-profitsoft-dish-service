@@ -6,13 +6,15 @@ import com.dteliukov.profitsoftlab2.dtos.UpdateCategoryDto;
 import com.dteliukov.profitsoftlab2.services.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
+/**
+ * REST controller for managing categories.
+ */
 @RestController
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
@@ -20,23 +22,44 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CategoryController {
     private final CategoryService categoryService;
 
+    /**
+     * Retrieves all categories.
+     *
+     * @return List of GetCategoryDto representing all categories.
+     */
     @GetMapping
     public List<GetCategoryDto> getAllCategories() {
         return categoryService.findAll();
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    /**
+     * Creates a new category.
+     *
+     * @param categoryDto The DTO containing category information.
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@RequestBody CreateCategoryDto categoryDto) {
         categoryService.save(categoryDto);
     }
 
+    /**
+     * Updates an existing category.
+     *
+     * @param categoryDto The DTO containing updated category information.
+     * @param id          The ID of the category to update.
+     */
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCategory(@RequestBody UpdateCategoryDto categoryDto, @PathVariable("id") Long id) {
         categoryService.update(categoryDto, id);
     }
 
+    /**
+     * Deletes a category by ID.
+     *
+     * @param id The ID of the category to delete.
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable("id") Long id) {

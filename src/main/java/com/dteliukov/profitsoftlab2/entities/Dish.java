@@ -17,9 +17,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dish {
-    /*
-    The unique identifier of the dish.
-    */
+    /**
+     * The unique identifier of the dish.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
