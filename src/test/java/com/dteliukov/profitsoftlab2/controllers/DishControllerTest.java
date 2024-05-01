@@ -510,8 +510,8 @@ public class DishControllerTest {
         mvc.perform(MockMvcRequestBuilders.multipart("/api/dishes/upload")
                         .file(file))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.countSuccessfulUploading").value(3))
-                .andExpect(jsonPath("$.countFailedUploading").value(0));
+                .andExpect(jsonPath("$.countSuccessfulUploadedRecords").value(3))
+                .andExpect(jsonPath("$.countFailedUploadedRecords").value(0));
 
         List<Dish> dishes = dishRepository.findAll();
         assertThat(dishes.size()).isEqualTo(3);
@@ -569,8 +569,8 @@ public class DishControllerTest {
         mvc.perform(MockMvcRequestBuilders.multipart("/api/dishes/upload")
                         .file(file))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.countSuccessfulUploading").value(1))
-                .andExpect(jsonPath("$.countFailedUploading").value(2));
+                .andExpect(jsonPath("$.countSuccessfulUploadedRecords").value(1))
+                .andExpect(jsonPath("$.countFailedUploadedRecords").value(2));
 
         List<Dish> dishes = dishRepository.findAll();
         assertThat(dishes.size()).isEqualTo(1);
@@ -627,8 +627,8 @@ public class DishControllerTest {
         mvc.perform(MockMvcRequestBuilders.multipart("/api/dishes/upload")
                         .file(file))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.countSuccessfulUploading").value(0))
-                .andExpect(jsonPath("$.countFailedUploading").value(3));
+                .andExpect(jsonPath("$.countSuccessfulUploadedRecords").value(0))
+                .andExpect(jsonPath("$.countFailedUploadedRecords").value(3));
 
         List<Dish> dishes = dishRepository.findAll();
         assertThat(dishes.size()).isEqualTo(0);

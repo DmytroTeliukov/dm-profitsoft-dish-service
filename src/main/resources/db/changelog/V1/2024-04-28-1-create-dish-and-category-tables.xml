@@ -110,5 +110,11 @@
                                  onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet id="create-index-idx-price" author="dmytro.teliukov@gmail.com">
+        <createIndex indexName="idx_price" tableName="dishes">
+            <column name="price"/>
+        </createIndex>
+    </changeSet>
+
 
 </databaseChangeLog>

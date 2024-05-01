@@ -74,7 +74,7 @@ public class DishController {
      */
     @PostMapping(value = "/_list",
             produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public FilterDishResponseDto getAllDishes(@RequestBody FilterDishRequestDto filterDishRequestDto) {
         return dishService.findAll(filterDishRequestDto);
     }
