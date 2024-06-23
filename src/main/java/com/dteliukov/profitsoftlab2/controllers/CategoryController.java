@@ -69,8 +69,4 @@ public class CategoryController {
         categoryService.deleteById(id);
     }
 
-    @PostMapping("/hi")
-    public void hi(@RequestBody EmailReceivedDto emailReceivedDto) {
-
-    }
 }
