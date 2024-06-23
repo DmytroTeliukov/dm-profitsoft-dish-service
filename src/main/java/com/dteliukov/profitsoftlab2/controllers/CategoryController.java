@@ -1,6 +1,7 @@
 package com.dteliukov.profitsoftlab2.controllers;
 
 import com.dteliukov.profitsoftlab2.dtos.CreateCategoryDto;
+import com.dteliukov.profitsoftlab2.dtos.EmailReceivedDto;
 import com.dteliukov.profitsoftlab2.dtos.GetCategoryDto;
 import com.dteliukov.profitsoftlab2.dtos.UpdateCategoryDto;
 import com.dteliukov.profitsoftlab2.services.CategoryService;
@@ -19,6 +20,8 @@ import java.util.List;
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
 @Validated
+
+//@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -64,5 +67,10 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable("id") Long id) {
         categoryService.deleteById(id);
+    }
+
+    @PostMapping("/hi")
+    public void hi(@RequestBody EmailReceivedDto emailReceivedDto) {
+
     }
 }

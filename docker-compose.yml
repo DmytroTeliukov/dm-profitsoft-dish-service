@@ -7,6 +7,8 @@ services:
     container_name: restaurant-postgressql-database
     ports:
       - "2000:5432"
+    networks:
+      - app-network
     volumes:
       - ./data:/var/lib/postgresql/data
     environment:
@@ -22,9 +24,16 @@ services:
     container_name: restaurant-backend-app
     ports:
       - "9090:9090"
+    networks:
+      - app-network
     depends_on:
       - restaurant-postgressql-database
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://restaurant-postgressql-database:5432/$POSTGRESDB_DATABASE
       SPRING_DATASOURCE_USERNAME: $POSTGRESDB_USER
       SPRING_DATASOURCE_PASSWORD: $POSTGRESDB_PASSWORD
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+networks:
+  app-network:
+    external: true

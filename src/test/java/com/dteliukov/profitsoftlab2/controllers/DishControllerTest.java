@@ -1,6 +1,7 @@
 package com.dteliukov.profitsoftlab2.controllers;
 
 import com.dteliukov.profitsoftlab2.ProfITsoftLab2SolutionApplication;
+import com.dteliukov.profitsoftlab2.config.KafkaTestConfig;
 import com.dteliukov.profitsoftlab2.dtos.*;
 import com.dteliukov.profitsoftlab2.entities.Category;
 import com.dteliukov.profitsoftlab2.entities.Dish;
@@ -17,7 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -47,6 +51,9 @@ public class DishControllerTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @MockBean
+    private KafkaTemplate<String, EmailReceivedDto> kafkaTemplate;
 
     @MockBean
     private DishJacksonStreamingReaderParser readerParser;

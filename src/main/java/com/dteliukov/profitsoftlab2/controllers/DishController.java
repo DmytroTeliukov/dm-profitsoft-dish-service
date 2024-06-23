@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/dishes")
 @RequiredArgsConstructor
 @Validated
+//@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class DishController {
     private final DishService dishService;
 

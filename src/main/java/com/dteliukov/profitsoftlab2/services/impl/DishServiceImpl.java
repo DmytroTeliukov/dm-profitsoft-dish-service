@@ -14,9 +14,12 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +45,10 @@ public class DishServiceImpl implements DishService {
     private final DishMapper dishMapper;
     private final ReaderParser<DishJsonObjDto> dishReaderParser;
     private final WriterParser<DishExcelObjDto> dishWriterParser;
+    private final KafkaOperations<String, EmailReceivedDto> kafkaOperations;
+
+    @Value("${kafka.topic.emailReceived}")
+    private String emailReceivedTopic;
 
     @Override
     @Transactional(readOnly = true)
@@ -51,6 +58,7 @@ public class DishServiceImpl implements DishService {
                         requestDto.getMaxPrice(),
                         PageRequest.of(requestDto.getPage(), requestDto.getSize()));
 
+        System.out.println(dishes.getTotalElements());
         List<GetDishDto> dishDtos = dishes.getContent().stream().map(dishMapper::toGetDishDto).toList();
 
 
@@ -80,6 +88,7 @@ public class DishServiceImpl implements DishService {
         dish.setCategory(foundCategory);
 
         dishRepository.save(dish);
+        //sendDishModificationEmail(dish);
     }
 
     @Override
@@ -106,6 +115,10 @@ public class DishServiceImpl implements DishService {
         foundDish.getIngredients().addAll(dishDto.getIngredients());
         foundDish.getCuisines().addAll(dishDto.getCuisines());
         foundDish.getDietarySpecifics().addAll(dishDto.getDietarySpecifics());
+
+
+
+        //sendDishModificationEmail(foundDish);
     }
 
     @Override
@@ -197,4 +210,15 @@ public class DishServiceImpl implements DishService {
                 .dietarySpecifics(jsonObjDto.getDietarySpecifics())
                 .build();
     }
+
+    /*private void sendDishModificationEmail(Dish dish) {
+        EmailReceivedDto email = EmailReceivedDto.builder()
+                .recipient("test@example.com")
+                .subject("Created new dish")
+                .content(String.format("Hi, thank you for creating a new dish \"%s\".", dish.getName()))
+                .build();
+
+
+        kafkaOperations.send(emailReceivedTopic, email);
+    }*/
 }
