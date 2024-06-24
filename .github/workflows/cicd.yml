@@ -26,13 +26,13 @@ jobs:
       - name: Build and push PostgreSQL image
         run: |
           docker pull postgres:16.2
-          docker tag postgres:16.2 myregistry.azurecr.io/restaurant-postgresql:16.2  # Replace with your ACR login server
-          docker push myregistry.azurecr.io/restaurant-postgresql:16.2  # Replace with your ACR login server
+          docker tag postgres:16.2 dmytrotelprofitsoft.azurecr.io/restaurant-postgresql:16.2 
+          docker push dmytrotelprofitsoft.azurecr.io/restaurant-postgresql:16.2  
 
       - name: Build and push backend app image
         run: |
-          docker build -t myregistry.azurecr.io/restaurant-backend-app:latest -f Dockerfile .  # Replace with your ACR login server
-          docker push myregistry.azurecr.io/restaurant-backend-app:latest  # Replace with your ACR login server
+          docker build -t dmytrotelprofitsoft.azurecr.io/restaurant-backend-app:latest -f Dockerfile .
+          docker push dmytrotelprofitsoft.azurecr.io/restaurant-backend-app:latest
 
   deploy:
     needs: build
@@ -53,5 +53,5 @@ jobs:
           app-name: dmtelprofitsortdishservice
           slot-name: production
           images: |
-            myregistry.azurecr.io/restaurant-backend-app:latest  # Replace with your ACR login server
-            myregistry.azurecr.io/restaurant-postgresql:16.2  # Replace with your ACR login server
+            dmytrotelprofitsoft.azurecr.io/restaurant-backend-app:latest  
+            dmytrotelprofitsoft.azurecr.io/restaurant-postgresql:16.2 
