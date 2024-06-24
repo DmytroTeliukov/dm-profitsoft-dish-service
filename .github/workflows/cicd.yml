@@ -48,10 +48,5 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: dmtelprofitsortdishservice
-          slot-name: production
-          images: |
-            dmytrotelprofitsoft.azurecr.io/restaurant-backend-app:latest  
-            dmytrotelprofitsoft.azurecr.io/restaurant-postgresql:16.2 
+        run: |
+          az webapp config container set --name dmtelprofitsortdishservice --resource-group dm-profitsoft-group --plan ASP-dmprofitsoftgroup-a64f --multicontainer-config-type compose --multicontainer-config-file docker-compose.prod.yml
