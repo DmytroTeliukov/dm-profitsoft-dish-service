@@ -49,4 +49,8 @@ jobs:
 
       - name: Deploy to Azure Web App
         run: |
-          az webapp config container set --name dmtelprofitsortdishservice --resource-group dm-profitsoft-group --multicontainer-config-type compose --multicontainer-config-file ../docker-compose.prod.yml
+          # Ensure the docker-compose.prod.yml file is present
+          ls -l
+          cat docker-compose.prod.yml
+          # Deploy to Azure Web App
+          az webapp config container set --name dmtelprofitsortdishservice --resource-group dm-profitsoft-group --multicontainer-config-type compose --multicontainer-config-file docker-compose.prod.yml
