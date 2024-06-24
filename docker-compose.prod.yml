@@ -12,9 +12,9 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: $POSTGRESDB_USER
-      POSTGRES_PASSWORD: $POSTGRESDB_PASSWORD
-      POSTGRES_DB: $POSTGRESDB_DATABASE
+      POSTGRES_USER: dmytro
+      POSTGRES_PASSWORD: qwerty1234
+      POSTGRES_DB: restaurant_db
 
   restaurant-backend-app:
     image: dmytrotelprofitsoft.azurecr.io/restaurant-backend-app:latest
@@ -26,9 +26,9 @@ services:
     depends_on:
       - restaurant-postgressql-database
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://restaurant-postgressql-database:5432/$POSTGRESDB_DATABASE
-      SPRING_DATASOURCE_USERNAME: $POSTGRESDB_USER
-      SPRING_DATASOURCE_PASSWORD: $POSTGRESDB_PASSWORD
+      SPRING_DATASOURCE_URL: jdbc:postgresql://restaurant-postgressql-database:5432/restaurant_db
+      SPRING_DATASOURCE_USERNAME: dmytro
+      SPRING_DATASOURCE_PASSWORD: qwerty1234
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
 networks:
