@@ -12,9 +12,9 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: $POSTGRESDB_USER
-      POSTGRES_PASSWORD: $POSTGRESDB_PASSWORD
-      POSTGRES_DB: $POSTGRESDB_DATABASE
+      POSTGRES_USER: ${POSTGRESDB_USER}
+      POSTGRES_PASSWORD: ${POSTGRESDB_PASSWORD}
+      POSTGRES_DB: ${POSTGRESDB_DATABASE}
 
   restaurant-backend-app:
     build:
@@ -29,9 +29,9 @@ services:
     depends_on:
       - restaurant-postgressql-database
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://restaurant-postgressql-database:5432/$POSTGRESDB_DATABASE
-      SPRING_DATASOURCE_USERNAME: $POSTGRESDB_USER
-      SPRING_DATASOURCE_PASSWORD: $POSTGRESDB_PASSWORD
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRESDB_ADDRESS}/${POSTGRESDB_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRESDB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRESDB_PASSWORD}
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
 networks:
