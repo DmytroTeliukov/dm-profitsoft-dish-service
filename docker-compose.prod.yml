@@ -26,9 +26,9 @@ services:
     depends_on:
       - restaurant-postgressql-database
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://dmtelprofitsortdishservice.azurewebsites.net:5432/restaurant_db
-      SPRING_DATASOURCE_USERNAME: dmytro
-      SPRING_DATASOURCE_PASSWORD: qwerty1234
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRESDB_ADDRESS}/${POSTGRESDB_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRESDB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRESDB_PASSWORD}
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
 networks:
